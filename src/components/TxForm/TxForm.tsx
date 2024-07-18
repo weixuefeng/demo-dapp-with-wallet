@@ -55,7 +55,7 @@ async function sendSignData() {
 	console.log(requestMessage);
 	(window as any).tonkeeper.tonconnect.send(requestMessage)
 	.then((res: any) => {
-		console.log(res)
+		console.log(JSON.stringify(res))
 	})
 	.catch((error: any) => {
 		console.log(error)
