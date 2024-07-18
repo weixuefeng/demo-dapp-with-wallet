@@ -4,9 +4,6 @@ import {THEME, TonConnectUIProvider} from "@tonconnect/ui-react";
 import {Footer} from "./components/Footer/Footer";
 import {Header} from "./components/Header/Header";
 import {TxForm} from "./components/TxForm/TxForm";
-import { Buffer as BufferPolyfill } from 'buffer'
-declare var Buffer: typeof BufferPolyfill;
-(globalThis as any).Buffer = BufferPolyfill
 
 function App() {
   return (
