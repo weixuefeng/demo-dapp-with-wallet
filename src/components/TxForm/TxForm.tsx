@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react';
 import ReactJson from 'react-json-view';
 import './style.scss';
 import {SendTransactionRequest, useTonConnectUI, useTonWallet} from "@tonconnect/ui-react";
+import { beginCell, toNano, Address } from '@ton/core'
 
 // In this example, we are using a predefined smart contract state initialization (`stateInit`)
 // to interact with an "EchoContract". This contract is designed to send the value back to the sender,
@@ -30,6 +31,58 @@ const defaultTx: SendTransactionRequest = {
 	],
 };
 
+const toAddress = "UQCCJjwbdw9gXLnV9jOmNspqYKhzcVKVlUxShkTHLisynVrW";
+
+
+function getTranserJettonContent(from: string) {
+	var jettonWalletContract = ""
+	var body = beginCell()
+	.storeUint(0, 32)                         // query_id:uint64
+	.storeStringTail("hello worl")                       // forward_payload:(Either Cell ^Cell)
+	.endCell();
+
+	return {
+		validUntil: Math.floor(Date.now() / 1000) + 600,
+		messages: [
+		{
+			// The receiver's address.
+			address: jettonWalletContract,
+			// Amount to send in nanoTON. For example, 0.005 TON is 5000000 nanoTON.
+			amount: toNano(0.05).toString(),
+			payload: body.toBoc().toString("base64") 
+		},
+	],
+	}
+}
+
+function sendSignData() {
+	var body = beginCell()
+	.storeUint(0, 32)                         // query_id:uint64
+	.storeStringTail("hello world")                       // forward_payload:(Either Cell ^Cell)
+	.endCell();
+
+	var payload = {
+		"schema_crc": 0x754bf91b,
+		"cell": body.toBoc().toString('base64'),
+		"publicKey": null
+	};
+
+	var requestMessage = {
+		"method": "signData",
+		"params": [JSON.stringify(payload)],
+		"id": "12312312",
+	};
+	console.log(requestMessage);
+	(window as any).tonkeeper.tonconnect.send(requestMessage)
+	.then((res: any) => {
+		console.log(res)
+	})
+	.catch((error: any) => {
+		console.log(error)
+	})
+}
+
+
 export function TxForm() {
 	const [tx, setTx] = useState(defaultTx);
 	const wallet = useTonWallet();
@@ -48,6 +101,8 @@ export function TxForm() {
 			) : (
 				<button onClick={() => tonConnectUi.openModal()}>Connect wallet to send the transaction</button>
 			)}
+			
+			<button onClick={() => { sendSignData()}}>send usdt test</button>
 		</div>
 	);
 }
