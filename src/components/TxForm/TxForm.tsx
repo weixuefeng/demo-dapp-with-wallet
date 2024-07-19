@@ -36,30 +36,29 @@ const toAddress = "UQCCJjwbdw9gXLnV9jOmNspqYKhzcVKVlUxShkTHLisynVrW";
 
 
 async function sendSignData() {
-	const Cell = TonWeb.boc.Cell;
-	const cell = new Cell();
-	cell.bits.writeString("hello world")   
-	var cellBytes = await cell.toBoc()    
+	try {
+		console.log("start signData")
+		const Cell = TonWeb.boc.Cell;
+		const cell = new Cell();
+		cell.bits.writeString("hello world")   
+		var cellBytes = await cell.toBoc()    
+		
+		var payload = {
+			"schema_crc": 0x754bf91b,
+			"cell": TonWeb.utils.bytesToBase64(cellBytes),
+			"publicKey": null
+		};
+		(window as any).gatetonwallet.tonconnect.signData(payload)
+		.then((res: any) => {
+			console.log(JSON.stringify(res))
+		})
+		.catch((error: any) => {
+			console.log(error)
+		})
+	} catch(e) {
+		console.log("error: ", e)
+	}
 	
-	var payload = {
-		"schema_crc": 0x754bf91b,
-		"cell": TonWeb.utils.bytesToBase64(cellBytes),
-		"publicKey": null
-	};
-
-	var requestMessage = {
-		"method": "signData",
-		"params": [JSON.stringify(payload)],
-		"id": "12312312",
-	};
-	console.log(requestMessage);
-	(window as any).tonkeeper.tonconnect.send(requestMessage)
-	.then((res: any) => {
-		console.log(JSON.stringify(res))
-	})
-	.catch((error: any) => {
-		console.log(error)
-	})
 }
 
 
