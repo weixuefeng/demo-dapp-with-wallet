@@ -80,11 +80,65 @@ async function  sendJettonWithComment(wallet: Wallet) {
 	return transaction;
 }
 
+async function test() {
+	try {
+		console.log("start signData")
+		const Cell = TonWeb.boc.Cell;
+		const cell = new Cell();
+		cell.bits.writeString("hello world"); 
+		var cellBytes = await cell.toBoc(); 
+		
+		var payload = {
+			"schema_crc": 0x754bf91b,
+			"cell": TonWeb.utils.bytesToBase64(cellBytes),
+			"publicKey": null
+		};
+		console.log("payload:", JSON.stringify(payload));
+		(window as any).gatetonwallet.tonconnect.signData(payload)
+		.then((res: any) => {
+			console.log("result:", JSON.stringify(res))
+		})
+		.catch((error: any) => {
+			console.log(error)
+		})
+	} catch(e) {
+		console.log("error: ", e)
+	}
+}
+
+
+async function switchTest() {
+	(window as any).ethereum.request({
+		method: 'wallet_switchEthereumChain',
+		params: [{ chainId: 0x89 }],
+	}).then((res: any) => {
+		console.log("siwtch gogogo");
+
+
+		(window as any).ethereum.request({
+			method: 'eth_chainId',
+			params: [],
+		}).then((res: any) => {
+			console.log("chain id: ", res);
+		}).catch((e:any) => {
+			console.log("chain error: ", e)
+		})
+	}).catch((e:any) => {
+		console.log("e:", e)
+	})
+
+
+}
 
 export function TxForm() {
 	const [tx, setTx] = useState(defaultTx);
 	const wallet = useTonWallet();
 	const [tonConnectUi] = useTonConnectUI();
+
+	if(wallet) {
+		console.log("pub:", JSON.stringify(wallet.account.publicKey));
+		console.log("address:", JSON.stringify(wallet.account.address));
+	}
 
 	const onChange = useCallback((value: object) => setTx((value as { updated_src: typeof defaultTx }).updated_src), []);
 
@@ -100,10 +154,11 @@ export function TxForm() {
 				<button onClick={() => tonConnectUi.openModal()}>Connect wallet to send the transaction</button>
 			)}
 			
-			<button onClick={() => { sendSignData()}}>signData test</button>
+			<button onClick={() => { test()}}>signData test</button>
 
 			<button onClick={async () => { tonConnectUi.sendTransaction(await sendJettonWithComment(wallet!))}}>send usdt test</button>
 
+			<button onClick={() => switchTest()}></button>
 		</div>
 	);
 }
