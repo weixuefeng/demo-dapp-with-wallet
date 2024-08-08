@@ -21,7 +21,7 @@ function App() {
             universalLink: "https://gateio.onelink.me/DmA6/web3",
             jsBridgeKey: "gatetonwallet",
             deepLink: "https://gateio.onelink.me/DmA6/web3",
-            bridgeUrl: "https://dapp.gateio.services/tonbridge_api/bridge/v1",
+            bridgeUrl: "https://bridge.tonapi.io/bridge",
             platforms: ["ios", "android"]
           },
         ]
