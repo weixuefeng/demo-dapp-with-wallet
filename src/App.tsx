@@ -18,9 +18,9 @@ function App() {
             name: "GateWallet",
             imageUrl: "https://www.gate.io/images/login/qrcode_center_icon.svg",
             aboutUrl: "https://gate.io",
-            universalLink: "https://gateio.onelink.me/DmA6/web3?deeplink=true",
+            universalLink: "https://gateio.onelink.me/DmA6/web3",
             jsBridgeKey: "gatetonwallet",
-            deepLink: "https://gateio.onelink.me/DmA6/web3?deeplink=true",
+            deepLink: "https://gateio.onelink.me/DmA6/web3",
             bridgeUrl: "https://dapp.gateio.services/tonbridge_api/bridge/v1",
             platforms: ["ios", "android"]
           },
