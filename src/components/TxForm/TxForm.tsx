@@ -80,31 +80,7 @@ async function  sendJettonWithComment(wallet: Wallet) {
 	return transaction;
 }
 
-async function test() {
-	try {
-		console.log("start signData")
-		const Cell = TonWeb.boc.Cell;
-		const cell = new Cell();
-		cell.bits.writeString("hello world"); 
-		var cellBytes = await cell.toBoc(); 
-		
-		var payload = {
-			"schema_crc": 0x754bf91b,
-			"cell": TonWeb.utils.bytesToBase64(cellBytes),
-			"publicKey": null
-		};
-		console.log("payload:", JSON.stringify(payload));
-		(window as any).gatetonwallet.tonconnect.signData(payload)
-		.then((res: any) => {
-			console.log("result:", JSON.stringify(res))
-		})
-		.catch((error: any) => {
-			console.log(error)
-		})
-	} catch(e) {
-		console.log("error: ", e)
-	}
-}
+
 
 
 async function switchTest() {
@@ -135,6 +111,39 @@ export function TxForm() {
 	const wallet = useTonWallet();
 	const [tonConnectUi] = useTonConnectUI();
 
+
+	async function signDataTest() {
+		try {
+			console.log("start signData")
+			const Cell = TonWeb.boc.Cell;
+			const cell = new Cell();
+			cell.bits.writeString("hello world"); 
+			var cellBytes = await cell.toBoc(); 
+			var payload = {
+				"schema_crc": 0x754bf91b,
+				"cell": TonWeb.utils.bytesToBase64(cellBytes),
+				"publicKey": undefined
+			};
+			console.log("payload:", JSON.stringify(payload));
+			tonConnectUi.signData(payload)
+			.then((res: any) => {
+				console.log("result:", JSON.stringify(res))
+			})
+			.catch((error: any) => {
+				console.log(error)
+			})
+			// (window as any).gatetonwallet.tonconnect.signData(payload)
+			// .then((res: any) => {
+			// 	console.log("result:", JSON.stringify(res))
+			// })
+			// .catch((error: any) => {
+			// 	console.log(error)
+			// })
+		} catch(e) {
+			console.log("error: ", e)
+		}
+	}
+	
 	if(wallet) {
 		console.log("pub:", JSON.stringify(wallet.account.publicKey));
 		console.log("address:", JSON.stringify(wallet.account.address));
@@ -154,11 +163,11 @@ export function TxForm() {
 				<button onClick={() => tonConnectUi.openModal()}>Connect wallet to send the transaction</button>
 			)}
 			
-			{/* <button onClick={() => { test()}}>signData test</button>
+			<button onClick={() => { signDataTest()}}>signData test</button>
 
 			<button onClick={async () => { tonConnectUi.sendTransaction(await sendJettonWithComment(wallet!))}}>send usdt test</button>
 
-			<button onClick={() => switchTest()}></button> */}
+			<button onClick={() => switchTest()}></button>
 		</div>
 	);
 }

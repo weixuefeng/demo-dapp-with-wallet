@@ -14,8 +14,8 @@ function App() {
       walletsListConfiguration={{
         includeWallets: [
           {
-            appName: "GateWallet",
-            name: "GateWallet",
+            appName: "GateWallet2",
+            name: "GateWallet2",
             imageUrl: "https://www.gate.io/images/login/qrcode_center_icon.svg",
             aboutUrl: "https://gate.io",
             universalLink: "https://gateio.onelink.me/DmA6/web3",
