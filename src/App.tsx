@@ -24,9 +24,6 @@ function App() {
           },
         ]
       }}
-      actionsConfiguration={{
-        twaReturnUrl: 'https://t.me/tc_twa_demo_bot/start'
-      }}
     >
       <div className="app">
         <Header/>
