@@ -163,10 +163,6 @@ export function TxForm() {
 				<button onClick={() => tonConnectUi.openModal()}>Connect wallet to send the transaction</button>
 			)}
 			
-			<button onClick={() => { signDataTest()}}>signData test</button>
-
-			<button onClick={async () => { tonConnectUi.sendTransaction(await sendJettonWithComment(wallet!))}}>send usdt test</button>
-
 			<button onClick={() => switchTest()}></button>
 		</div>
 	);

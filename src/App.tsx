@@ -14,14 +14,12 @@ function App() {
       walletsListConfiguration={{
         includeWallets: [
           {
-            appName: "GateWallet",
-            name: "GateWallet",
-            imageUrl: "https://www.gate.io/images/login/qrcode_center_icon.svg",
-            aboutUrl: "https://gate.io",
-            universalLink: "https://gateio.onelink.me/DmA6/web3",
-            jsBridgeKey: "gatetonwallet",
-            deepLink: "https://gateio.onelink.me/DmA6/web3",
-            bridgeUrl: "https://dapp.gateio.services/tonbridge_api/bridge/v1",
+            appName: "AB Pay",
+            name: "AB Pay",
+            imageUrl: "https://www.abpay.cash/_next/static/media/app-logo-dark.1f3e2c12.svg",
+            aboutUrl: "https://www.abpay.cash",
+            jsBridgeKey: "abpay",
+            bridgeUrl: "https://ton-connect.abpay.cash/bridge",
             platforms: ["ios", "android"]
           },
         ]
